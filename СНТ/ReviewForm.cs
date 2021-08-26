@@ -10,7 +10,6 @@ namespace СНТ
 {
     public partial class ReviewForm : Form
     {
-        private int r = 99;
         private SqlConnection sqlConnection = null;
         private SqlDataAdapter dataAdapter = null;
         private DataSet dataSet = null;
