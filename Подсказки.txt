@@ -1,0 +1,31 @@
+https://www.cyberforum.ru/windows-forms/thread1543049.html изминения размера окна
+
+https://vscode.ru/articles/rastyanut-elementyi-na-forme-windows-forms.html автоматически изменяются размеры содержимого окна
+
+private void button1_Click(object sender, EventArgs e)
+{
+    Form2 form = new Form2();
+    form.Size = new Size(250, 200);        свернуть в опредиленное положение
+    form.Show();
+}            
+
+this.WindowState = FormWindowState.Maximized;  максимально развернуть 
+
+
+
+
+https://ru.stackoverflow.com/questions/431177/ выбор опредиленного окна для старта 
+
+
+https://progi.pro/s-sdelat-fonoviy-risunok-formi-dlya-otobrazheniya-fonapng-s-poluprozrachnimi-pikselyami-11259713   прозрачный цвет формы
+
+
+https://www.cyberforum.ru/csharp-beginners/thread340454.html  вставить картинку (также смори в ютубе в понравившихся)
+
+
+
+https://www.cyberforum.ru/csharp-beginners/thread397146.html    плавное открыти и закрытия окна
+
+
+https://ru.stackoverflow.com/questions/233692/ иконка для .exe
+

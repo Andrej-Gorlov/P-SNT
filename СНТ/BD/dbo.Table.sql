@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Дружба_1СО]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [F_I_O] NVARCHAR(50) NULL, 
+    [Region] NVARCHAR(50) NULL, 
+    [KTP_TP] NVARCHAR(50) NULL, 
+    [P] INT NULL
+)
