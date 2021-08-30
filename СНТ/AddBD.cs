@@ -18,7 +18,7 @@ namespace СНТ
         private SqlDataAdapter dataAdapter = null;
         private DataSet dataSet = null;
         private Point point;
-        Schtorka schtorka = new Schtorka();
+        Lazy<Schtorka> schtorka = new Lazy<Schtorka>();
         private string vvodNameTabel { get; set; }
         private bool newRowAdding = false;
         public AddBD()
@@ -360,12 +360,12 @@ namespace СНТ
         private void panel2_MouseEnter(object sender, EventArgs e)
         {
             label10.Text = " ";
-            schtorka.OpenSchtorkaLeva_Pravo(panel1, panel2);
+            schtorka.Value.OpenSchtorkaLeva_Pravo(panel1, panel2);
         }
         private void panel1_MouseEnter(object sender, EventArgs e)
         {
-            schtorka.CloseStorkaPravo_Levo(panel2, -327);
-            schtorka.CloseSchtorkaVerch_Nize(panel3, 746);
+            schtorka.Value.CloseStorkaPravo_Levo(panel2, -327);
+            schtorka.Value.CloseSchtorkaVerch_Nize(panel3, 746);
             label10.Text = "Н\nа\nи\nм\nе\nн\nо\nв\nа\nн\nи\nя\n \nС\nН\nТ";
         }
         private void panel2_Paint(object sender, PaintEventArgs e)
@@ -375,13 +375,13 @@ namespace СНТ
         }
         private void dataGridView1_MouseEnter(object sender, EventArgs e)
         {
-            schtorka.CloseStorkaPravo_Levo(panel2, -327);
+            schtorka.Value.CloseStorkaPravo_Levo(panel2, -327);
             label10.Text = "Н\nа\nи\nм\nе\nн\nо\nв\nа\nн\nи\nя\n \nС\nН\nТ";
-            schtorka.CloseSchtorkaVerch_Nize(panel3, 746);
+            schtorka.Value.CloseSchtorkaVerch_Nize(panel3, 746);
         }
         private void panel3_MouseEnter(object sender, EventArgs e)
         {
-            schtorka.OpenSchtorkaNize_Verch(panel3, 299);
+            schtorka.Value.OpenSchtorkaNize_Verch(panel3, 299);
         }
         private void panel3_Paint(object sender, PaintEventArgs e)
         {

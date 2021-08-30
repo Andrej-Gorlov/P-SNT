@@ -18,8 +18,7 @@ namespace СНТ
         private SqlDataAdapter dataAdapter = null;
         private SqlCommandBuilder sqlCommandBuilder = null;
         private DataSet dataSet = null;
-        Schtorka schtorka = new Schtorka();
-
+        Lazy<Schtorka> schtorka = new Lazy<Schtorka>();
         private Point point;
         private string vvodLogin { get; set; }
         private bool newRowAdding = false;
@@ -299,11 +298,11 @@ namespace СНТ
         private void panel2_MouseEnter(object sender, EventArgs e)
         {
             label2.Text = " ";
-            schtorka.OpenSchtorkaPravo_Levo(panel1, panel2, 720);
+            schtorka.Value.OpenSchtorkaPravo_Levo(panel1, panel2, 720);
         }
         private void panel1_MouseEnter(object sender, EventArgs e)
         {
-            schtorka.CloseSchtorkaLevo_Pravo(panel2, 1046);
+            schtorka.Value.CloseSchtorkaLevo_Pravo(panel2, 1046);
             label2.Text = "У\nд\nа\nл\nи\nт\nь\n \nп\nо\nл\nь\nз\nо\nв\nа\nт\nе\nл\nя";
         }
 
