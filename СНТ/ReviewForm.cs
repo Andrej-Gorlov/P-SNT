@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Threading.Tasks;
 
 namespace СНТ
 {
@@ -131,64 +132,70 @@ namespace СНТ
                 button3.Visible = false;
             }
         }
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
             try
             {
-                if (NameSNT.Text!=null)
+                await Task.Run(() => 
                 {
-                    if (dataGridView1.Rows.Count > 0)
+                    if (NameSNT.Text != null)
                     {
-                        Excel.Application application = new Excel.Application();
-                        application.Application.Workbooks.Add(Type.Missing);
-                        for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+                        if (dataGridView1.Rows.Count > 0)
                         {
-                            application.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
-                        }
-                        for (int i = 0; i < dataGridView1.Rows.Count; i++)
-                        {
-                            for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                            Excel.Application application = new Excel.Application();
+                            application.Application.Workbooks.Add(Type.Missing);
+                            for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
                             {
-                                application.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value;
+                                application.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
                             }
+                            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                            {
+                                for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                                {
+                                    application.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value;
+                                }
+                            }
+                            application.Columns.AutoFit();
+                            application.Visible = true;
                         }
-                        application.Columns.AutoFit();
-                        application.Visible = true;
                     }
-                }
-                else MessageBox.Show("Введите  СНТ");
+                    else MessageBox.Show("Введите  СНТ");
+                });
             }
             catch (Exception isk)
             {
                 MessageBox.Show(isk.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void button4_Click(object sender, EventArgs e)
+        private async void button4_Click(object sender, EventArgs e)
         {
             dataAdapter = new SqlDataAdapter($"SELECT * FROM [Name_SNT]", sqlConnection);
             dataSet = new DataSet();
             dataAdapter.Fill(dataSet, $"Name_SNT");
             dataGridView2.DataSource = dataSet.Tables[0];
 
-            if (dataGridView1.Rows.Count > 0)
-            {
-                Excel.Application application = new Excel.Application();
-                application.Application.Workbooks.Add(Type.Missing);
-                for (int i = 1; i < dataGridView2.Columns.Count + 1; i++)
+            await Task.Run(() => {
+                if (dataGridView1.Rows.Count > 0)
                 {
-                    application.Cells[1, i] = dataGridView2.Columns[i - 1].HeaderText;
-                }
-                for (int i = 0; i < dataGridView2.Rows.Count; i++)
-                {
-                    for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                    Excel.Application application = new Excel.Application();
+                    application.Application.Workbooks.Add(Type.Missing);
+                    for (int i = 1; i < dataGridView2.Columns.Count + 1; i++)
                     {
-                        application.Cells[i + 2, j + 1] = dataGridView2.Rows[i].Cells[j].Value;
+                        application.Cells[1, i] = dataGridView2.Columns[i - 1].HeaderText;
                     }
+                    for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                        {
+                            application.Cells[i + 2, j + 1] = dataGridView2.Rows[i].Cells[j].Value;
+                        }
+                    }
+                    application.Columns.AutoFit();
+                    application.Visible = true;
                 }
-                application.Columns.AutoFit();
-                application.Visible = true;
-                СhallengeNameSNT();
-            }
+            });
+
+            СhallengeNameSNT();
         }
         private void NameSNT_KeyDown(object sender, KeyEventArgs e)
         {
@@ -205,7 +212,6 @@ namespace СНТ
                 MessageBox.Show(isk.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
             ControlPaint.DrawBorder(e.Graphics, this.panel2.ClientRectangle,
